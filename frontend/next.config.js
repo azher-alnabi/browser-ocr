@@ -6,8 +6,6 @@ const nextConfig = {
   distDir: 'dist',
   images: {
     unoptimized: true,
-  basePath: '/browser-ocr',
-  assetPrefix: '/browser-ocr/',
   },
 }
  
