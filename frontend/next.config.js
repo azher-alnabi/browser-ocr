@@ -3,6 +3,8 @@
  */
 const nextConfig = {
   output: 'export',
+  basePath: '/browser-ocr',
+  assetPrefix: '/browser-ocr/', 
   images: {
     unoptimized: true,
   },
