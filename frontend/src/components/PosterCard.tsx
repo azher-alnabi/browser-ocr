@@ -16,7 +16,7 @@ const PosterCard: React.FC<PosterCardProps> = ({ src }) => {
           />
         ) : (
           <div className="flex items-center justify-center text-gray-400 text-sm">
-            Start by uploading a PNG image to grab text from!
+            Start by uploading an image to grab text from!
           </div>
         )}
       </div>

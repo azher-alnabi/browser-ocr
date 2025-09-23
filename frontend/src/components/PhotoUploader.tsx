@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import PosterCard from "./PosterCard";
 
-const LOCAL_STORAGE_KEY = "uploadedPoster";
+const LOCAL_STORAGE_KEY = "uploadedPhoto";
 
-const PosterUploader: React.FC = () => {
-  const [posterSrc, setPosterSrc] = useState<string | null>(null);
+const PhotoUploader: React.FC = () => {
+  const [photoSrc, setPhotoSrc] = useState<string | null>(null);
 
   useEffect(() => {
     const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (saved) setPosterSrc(saved);
+    if (saved) setPhotoSrc(saved);
   }, []);
 
   const handleUploadClick = () => {
-    const input = document.getElementById("upload-png") as HTMLInputElement;
+    const input = document.getElementById("upload-photo") as HTMLInputElement;
     input?.click();
   };
 
@@ -20,8 +20,8 @@ const PosterUploader: React.FC = () => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.type !== "image/png") {
-      alert("Please upload a PNG file!");
+    if (!["image/png", "image/jpeg"].includes(file.type)) {
+      alert("Please upload a PNG or JPG file!");
       return;
     }
 
@@ -29,7 +29,7 @@ const PosterUploader: React.FC = () => {
     reader.onload = () => {
       const result = reader.result as string;
       localStorage.setItem(LOCAL_STORAGE_KEY, result);
-      setPosterSrc(result);
+      setPhotoSrc(result);
     };
     reader.readAsDataURL(file);
   };
@@ -37,42 +37,39 @@ const PosterUploader: React.FC = () => {
   return (
     <div className="flex flex-col items-center space-y-2">
       <div className="flex space-x-2">
-        
         <button
           type="button"
           className="px-5 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all"
           onClick={handleUploadClick}
         >
-          Upload PNG
+          Upload Photo
         </button>
 
-        {posterSrc && (
+        {photoSrc && (
           <button
             type="button"
             className="px-5 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all"
             onClick={() => {
               localStorage.removeItem(LOCAL_STORAGE_KEY);
-              setPosterSrc(null);
+              setPhotoSrc(null);
             }}
           >
-            Clear Poster
+            Clear Photo
           </button>
         )}
-
       </div>
 
-      {/* Hidden file input */}
       <input
-        id="upload-png"
+        id="upload-photo"
         type="file"
-        accept="image/png"
+        accept="image/png, image/jpeg"
         className="hidden"
         onChange={handleFileChange}
       />
 
-      <PosterCard src={posterSrc} />
+      <PosterCard src={photoSrc} />
     </div>
   );
 };
 
-export default PosterUploader;
+export default PhotoUploader;

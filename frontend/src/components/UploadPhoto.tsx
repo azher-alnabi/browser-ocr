@@ -1,18 +1,18 @@
 import React from "react";
 
-const LOCAL_STORAGE_KEY = "uploadedPoster";
+const LOCAL_STORAGE_KEY = "uploadedPhoto";
 
-interface UploadPNGProps {
+interface UploadPhotoProps {
   onUpload: (dataUrl: string) => void;
 }
 
-const UploadPNG: React.FC<UploadPNGProps> = ({ onUpload }) => {
+const UploadPhoto: React.FC<UploadPhotoProps> = ({ onUpload }) => {
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.type !== "image/png") {
-      alert("Please upload a PNG file!");
+    if (!["image/png", "image/jpeg"].includes(file.type)) {
+      alert("Please upload a PNG or JPG file!");
       return;
     }
 
@@ -27,10 +27,10 @@ const UploadPNG: React.FC<UploadPNGProps> = ({ onUpload }) => {
 
   return (
     <label className="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 cursor-pointer transition">
-      Upload PNG
+      Upload Photo
       <input
         type="file"
-        accept="image/png"
+        accept="image/png, image/jpeg"
         onChange={handleUpload}
         className="hidden"
       />
@@ -38,4 +38,4 @@ const UploadPNG: React.FC<UploadPNGProps> = ({ onUpload }) => {
   );
 };
 
-export default UploadPNG;
+export default UploadPhoto;
