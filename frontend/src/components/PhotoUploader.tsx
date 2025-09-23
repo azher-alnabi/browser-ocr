@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PosterCard from "./PosterCard";
+import PosterCard from "./PhotoCard";
 
 const LOCAL_STORAGE_KEY = "uploadedPhoto";
 

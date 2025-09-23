@@ -5,6 +5,7 @@ import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 import PhotoUploader from '../components/PhotoUploader.tsx';
+import TextExtractor from '../components/TextExtractor.tsx';
 ---
 
 <!doctype html>
@@ -25,7 +26,7 @@ import PhotoUploader from '../components/PhotoUploader.tsx';
           <PhotoUploader client:load />
         </div>
         <div class="flex-1">
-          <PhotoUploader client:load />
+          <TextExtractor client:load />
         </div>
       </div>
       <div>
