@@ -3,16 +3,14 @@ import Tesseract from "tesseract.js";
 
 const LOCAL_STORAGE_KEY = "uploadedPhoto";
 
-const TextExtractor: React.FC = () => {
+const TextPanel: React.FC = () => {
   const [image, setImage] = useState<string | null>(null);
   const [text, setText] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (saved) {
-      setImage(saved);
-    }
+    if (saved) setImage(saved);
   }, []);
 
   const handleExtractText = async () => {
@@ -22,7 +20,7 @@ const TextExtractor: React.FC = () => {
 
     try {
       const result = await Tesseract.recognize(image, "eng", {
-        logger: (m) => console.log(m), // optional progress logger
+        logger: (m) => console.log(m),
       });
       setText(result.data.text);
     } catch (err) {
@@ -57,14 +55,9 @@ const TextExtractor: React.FC = () => {
         </>
       ) : (
         <>
-
-          <button
-            onClick={() => alert("Please upload a photo first!")}
-            disabled={loading}
-            className="px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg shadow-md"
-          >
-            Please upload a photo first!
-          </button>
+          <div className="px-5 py-3 bg-green-300 text-white font-medium rounded-lg shadow-inner cursor-not-allowed opacity-50 select-none">
+            Extract Text
+          </div>
 
           <div className="aspect-[1/1.414] bg-white border border-gray-900 shadow-lg rounded-lg overflow-hidden flex items-center justify-center">
             <span className="text-gray-400">No photo uploaded yet.</span>
@@ -75,4 +68,4 @@ const TextExtractor: React.FC = () => {
   );
 };
 
-export default TextExtractor;
+export default TextPanel;
